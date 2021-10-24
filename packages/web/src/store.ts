@@ -6,8 +6,6 @@ import type { WidgetConfig } from "./types/widgetConfig";
 
 export const submissionId = writable<string | null>(null);
 
-export const projectId = writable<null | string>(null);
-
 export const currentlySelectedCategory = writable<null | SubmissionCategory>(
   null
 );
@@ -20,11 +18,15 @@ export const isVisible = writable(false);
 
 export const isMobile = writable(false);
 
-export const endpoint = "https://app.bromb.co";
+// export const endpoint = "https://app.bromb.co";
+export const endpoint = "http://localhost:3000";
 
 export const widgetError = writable<unknown | null>(null);
 
-export function resetWidget() {
+/**
+ * Closes the widget and re-initializes stores where appropriate.
+ */
+export function closeWidget() {
   isVisible.set(false);
   // closing animation collides with changing the route.
   // therefore wait before closing animation is done to goto

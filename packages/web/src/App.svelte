@@ -9,12 +9,13 @@
   import Layout from "./components/Layout.svelte";
   import { createPopper } from "@popperjs/core/dist/esm";
   import { parseUrl } from "./functions/parseUrl";
+  import { getConfig } from "./functions/getConfig";
 
   const brombHtmlElement = document.querySelector("#bromb-widget");
 
   let lastTriggerElement;
 
-  document.body.addEventListener("click", (event) => {
+  document.body.addEventListener("click", async (event) => {
     let match;
     if (event.target?.matches("[href^='https://submission.bromb.co']")) {
       match = event.target;
@@ -30,19 +31,33 @@
     if (match) {
       event.preventDefault();
       const parsedUrl = parseUrl({ url: new URL(match.href) });
-      $metadata = parsedUrl.metadata;
-      if (parsedUrl.route) {
-        // if widget config contains id for the submission category,
-        // set currently selected category to this id and route to form
-        $currentlySelectedCategory =
-          $widgetConfig?.submissionCategories.find(
-            (c) => c.id === parsedUrl.route.slice(1, parsedUrl.route.length)
-          ) ?? null;
-        if ($currentlySelectedCategory) {
-          router.goto("/form");
+      if (parsedUrl.error) {
+        $widgetError = parsedUrl.error;
+      } else {
+        $metadata = parsedUrl.data.metadata;
+        if ($widgetConfig === null) {
+          const config = await getConfig({
+            organizationName: parsedUrl.data.organizationName,
+            projectName: parsedUrl.data.projectName,
+          });
+          if (config.error) {
+            $widgetError = config.error;
+          } else {
+            $widgetConfig = config.data;
+          }
+        }
+        if (parsedUrl.route) {
+          // if widget config contains id for the submission category,
+          // set currently selected category to this id and route to form
+          $currentlySelectedCategory =
+            $widgetConfig?.submissionCategories.find(
+              (c) => c.id === parsedUrl.route.slice(1, parsedUrl.route.length)
+            ) ?? null;
+          if ($currentlySelectedCategory) {
+            router.goto("/form");
+          }
         }
       }
-      // ({metadata: $metadata} = parseUrl({ url: new URL(match.href) });
       $isVisible = !$isVisible;
       $isMobile = window.innerWidth <= 640 ? true : false;
       lastTriggerElement = event.target;

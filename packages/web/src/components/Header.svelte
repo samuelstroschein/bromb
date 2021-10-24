@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { currentlySelectedCategory, resetWidget } from "./../store";
+  import { currentlySelectedCategory, closeWidget } from "./../store";
   import CloseIcon from "@svicons/ionicons-outline/close.svelte";
   import ArrowBackIcon from "@svicons/ionicons-outline/arrow-back.svelte";
   import { router } from "../router";
@@ -26,7 +26,7 @@
     </row>
   {/if}
   <div
-    on:click="{resetWidget}"
+    on:click="{closeWidget}"
     class="text-neutral cursor-pointer hover:bg-base-300 rounded p-1 h-full"
   >
     <CloseIcon class="w-7 h-7 md:w-5 md:h-5" />

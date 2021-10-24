@@ -2,10 +2,10 @@
   import {
     currentlySelectedCategory,
     endpoint,
-    projectId,
     submissionId,
     metadata,
     widgetError,
+    widgetConfig,
   } from "../../store";
   import html2canvas from "html2canvas";
   import CameraIcon from "@svicons/ionicons-solid/camera.svelte";
@@ -15,14 +15,15 @@
   import { router } from "../../router";
 
   type RequestBody = {
-    projectId: string;
+    organizationName: string;
+    projectName: string;
     categoryId: string;
     body: string;
     metadata: Metadata;
   };
 
   type ResponseBody = {
-    submissionId: number;
+    submissionId: string;
   };
 
   let message: string = "";
@@ -53,13 +54,14 @@
   }
 
   async function handleSubmission() {
-    if ($currentlySelectedCategory === null) {
+    if ($currentlySelectedCategory === null || $widgetConfig === null) {
       $widgetError = "Something went wrong. Please report the bug to bromb.";
       return;
     }
     buttonIsLoading = true;
     const body: RequestBody = {
-      projectId: $projectId!,
+      projectName: $widgetConfig.projectName,
+      organizationName: $widgetConfig.organizationName,
       body: message,
       categoryId: $currentlySelectedCategory.id,
       metadata: $metadata!,
@@ -71,9 +73,7 @@
       },
       body: JSON.stringify(body),
     });
-    $submissionId = ((await response.json()) as Record<string, string>)[
-      "submissionId"
-    ];
+    $submissionId = ((await response.json()) as ResponseBody).submissionId;
     if (response.status === 200) {
       router.goto("/form/success");
     } else {

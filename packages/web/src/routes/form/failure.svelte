@@ -1,10 +1,10 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { resetWidget } from "../../store";
+  import { closeWidget } from "../../store";
 
   onMount(() => {
     setTimeout(() => {
-      resetWidget();
+      closeWidget();
     }, 2000);
   });
 </script>

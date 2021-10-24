@@ -1,5 +1,5 @@
 <script>
-  import { isMobile, resetWidget } from "../store";
+  import { isMobile, closeWidget } from "../store";
   import { fade, slide } from "svelte/transition";
   import Header from "./Header.svelte";
   import Footer from "./Footer.svelte";
@@ -40,7 +40,7 @@
     <div
       id="bromb-mobile-overlay"
       class="w-screen h-screen bg-black fixed top-0 left-0 opacity-25 -z-top-2"
-      on:click="{resetWidget}"
+      on:click="{closeWidget}"
     ></div>
     <div
       transition:slide
@@ -53,7 +53,7 @@
   {:else}
     <div
       class="rounded-xl p-2 shadow-desktop bg-primary-content -z-top-1 w-64"
-      use:clickOutside="{resetWidget}"
+      use:clickOutside="{closeWidget}"
     >
       <Header />
       <slot />

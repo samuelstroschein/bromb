@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  import { submissionId, resetWidget, endpoint, metadata } from "../../store";
+  import { submissionId, closeWidget, endpoint, metadata } from "../../store";
 
   let email = "";
 
@@ -21,7 +21,8 @@
       }),
     });
     if (response.status === 200) {
-      resetWidget();
+      // close widget
+      setTimeout(closeWidget, 750);
     }
   }
 
@@ -30,7 +31,7 @@
       emailInput.focus();
     } else {
       //  email is collected, thus close widget automatically
-      setTimeout(() => resetWidget(), 750);
+      setTimeout(closeWidget, 750);
     }
   });
 </script>
@@ -52,7 +53,7 @@
       <button
         class="btn md:btn-sm btn-secondary"
         disabled="{isValidMail}"
-        on:click="{resetWidget}">Close</button
+        on:click="{closeWidget}">Close</button
       >
       <button
         class="btn btn-primary md:btn-sm w-full flex-shrink"
