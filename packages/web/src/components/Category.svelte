@@ -17,9 +17,9 @@
     <p class="text-center text-2xl">{category.emoji}</p>
   </div>
   <div>
-    <p>{category.title}</p>
+    <p class="font-semibold">{category.title}</p>
     {#if showDescription}
-      <p class="text-sm text-gray-500">{category.description}</p>
+      <p class="text-sm">{category.description}</p>
     {/if}
   </div>
 </div>

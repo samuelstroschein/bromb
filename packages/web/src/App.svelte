@@ -93,4 +93,18 @@
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
+
+  @layer base {
+    column {
+      @apply flex;
+      @apply flex-col;
+    }
+    row {
+      @apply flex;
+      @apply flex-row;
+    }
+    grid {
+      @apply grid;
+    }
+  }
 </style>

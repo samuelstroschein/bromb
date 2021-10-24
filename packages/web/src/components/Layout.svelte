@@ -52,7 +52,7 @@
     </div>
   {:else}
     <div
-      class="rounded-xl p-2 shadow-desktop bg-primary-content -z-top-1 w-64"
+      class="rounded-xl p-2 shadow-desktop bg-primary-content -z-top-1 w-72"
       use:clickOutside="{closeWidget}"
     >
       <Header />
