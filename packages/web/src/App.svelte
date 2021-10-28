@@ -10,6 +10,7 @@
   import { createPopper } from "@popperjs/core/dist/esm";
   import { parseUrl } from "./functions/parseUrl";
   import { getConfig } from "./functions/getConfig";
+  import CategorySkeleton from "./components/CategorySkeleton.svelte";
 
   const brombHtmlElement = document.querySelector("#bromb-widget");
 
@@ -86,31 +87,8 @@
 {#if $isVisible}
   <Layout lastTriggerElement="{lastTriggerElement}">
     {#if isLoading}
-      <!-- skeletons -->
-      <column class="w-full space-y-3">
-        <div
-          class="w-20 h-6 bg-base-300 dark:bg-base-content rounded-full animate-pulse"
-        ></div>
-        <div
-          class="w-full h-4 bg-base-300 dark:bg-base-content rounded-full animate-pulse"
-        ></div>
-        <div
-          class="w-full h-4 bg-base-300 dark:bg-base-content rounded-full animate-pulse"
-        ></div>
-      </column>
-      <br />
-      <column class="w-full space-y-3">
-        <div
-          class="w-20 h-6 bg-base-300 dark:bg-base-content rounded-full animate-pulse"
-        ></div>
-        <div
-          class="w-full h-4 bg-base-300 dark:bg-base-content rounded-full animate-pulse"
-        ></div>
-        <div
-          class="w-full h-4 bg-base-300 dark:bg-base-content rounded-full animate-pulse"
-        ></div>
-      </column>
-      <!-- skeletons end -->
+      <CategorySkeleton />
+      <CategorySkeleton />
     {:else if $widgetError}
       <p>Something went wrong: {$widgetError}</p>
     {:else}
