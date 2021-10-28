@@ -7,10 +7,9 @@
     widgetError,
     widgetConfig,
   } from "../../store";
-  import html2canvas from "html2canvas";
   import CameraIcon from "@svicons/ionicons-solid/camera.svelte";
   import CloseIcon from "@svicons/ionicons-solid/close.svelte";
-
+  import { dataURL } from "@gripeless/pico";
   import { onMount } from "svelte";
   import type { Metadata } from "../../types/metadata";
   import { router } from "../../router";
@@ -39,9 +38,16 @@
     if ($metadata?.["screenshot"]) {
       $metadata["screenshot"] = undefined;
     } else {
-      const canvas = await html2canvas(document.querySelector("body")!);
-      if ($metadata) {
-        $metadata["screenshot"] = canvas.toDataURL();
+      try {
+        const screenshot = await dataURL(window, { ignore: ["#bromb-widget"] });
+        if ($metadata) {
+          $metadata["screenshot"] = screenshot.value;
+        }
+      } catch (err) {
+        if ($metadata?.["screenshot"]) {
+          $metadata["screenshot"] = undefined;
+          console.error("Bromb: Taking a screenshot throwed an error.");
+        }
       }
     }
   }

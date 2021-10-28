@@ -88,6 +88,7 @@
   <Layout lastTriggerElement="{lastTriggerElement}">
     {#if isLoading}
       <CategorySkeleton />
+      <br />
       <CategorySkeleton />
     {:else if $widgetError}
       <p>Something went wrong: {$widgetError}</p>
