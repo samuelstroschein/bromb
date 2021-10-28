@@ -7,6 +7,7 @@ import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import sveltePreprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
+import { visualizer } from "rollup-plugin-visualizer";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -44,6 +45,7 @@ export default {
     file: "public/build/widget.js",
   },
   plugins: [
+    visualizer(),
     svelte({
       emitCss: false,
       preprocess: [sveltePreprocess({ sourceMap: !production, postcss: true })],
