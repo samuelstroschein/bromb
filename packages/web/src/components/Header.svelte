@@ -7,7 +7,7 @@
 
 <row class="flex flex-row justify-between items-center space-x-2">
   {#if $currentlySelectedCategory === null}
-    <p class="text-xl sm:text-lg font-bold text-neutral py-1">
+    <p class="text-xl sm:text-lg font-bold text-base-content p-1">
       What's on your mind?
     </p>
   {:else}
@@ -18,8 +18,8 @@
         router.goto('/');
       }}"
     >
-      <ArrowBackIcon class="text-neutral w-5 h-5 md:w-4 md:h-4" />
-      <p class="text-neutral text-xl sm:text-lg font-bold pt-0.5">
+      <ArrowBackIcon class="text-base-content w-5 h-5 md:w-4 md:h-4" />
+      <p class="text-base-content text-xl sm:text-lg font-bold pt-0.5">
         {$currentlySelectedCategory.emoji}
         {$currentlySelectedCategory.title}
       </p>
@@ -27,7 +27,7 @@
   {/if}
   <div
     on:click="{closeWidget}"
-    class="text-neutral cursor-pointer hover:bg-base-300 rounded p-1 h-full"
+    class="text-base-content cursor-pointer hover:bg-base-300 rounded p-1 h-full"
   >
     <CloseIcon class="w-7 h-7 md:w-5 md:h-5" />
   </div>

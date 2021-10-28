@@ -13,6 +13,8 @@ module.exports = {
       safelist: [/data-theme$/],
     },
   },
+  // using daisy ui for dark mode
+  // https://daisyui.com/docs/default-themes
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {

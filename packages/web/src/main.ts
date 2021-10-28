@@ -1,5 +1,6 @@
 // @ts-ignore
 import App from "./App.svelte";
+import { theme } from "./store";
 
 class BrombWebComponent extends HTMLElement {
   connectedCallback() {
@@ -20,6 +21,20 @@ async function main(): Promise<void> {
   // setting the zIndex to the maximum:
   // the bromb widegt should always be on top of all other layers.
   bromb.style.zIndex = "2147483647";
+  const themeAttribute = document.currentScript?.getAttribute("data-theme");
+  if (themeAttribute) {
+    if (themeAttribute === "light" || themeAttribute === "dark") {
+      theme.set(themeAttribute);
+    } else {
+      console.warn(
+        `Bromb: Only 'light' and 'dark' are allowed in the data-theme attribute but you specified ${themeAttribute}`
+      );
+    }
+  } else {
+    console.warn(
+      `Bromb: You have not specified a theme in the data-theme attribute. Light mode is chosen as fallback.`
+    );
+  }
   document.body.appendChild(bromb);
 }
 

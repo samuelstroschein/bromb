@@ -38,16 +38,16 @@
 
 <div class="flex flex-col space-y-2">
   <div class="self-center">
-    <p class="font-bold">✅ Success</p>
+    <p class="font-bold text-base-content">✅ Success</p>
   </div>
   {#if $metadata?.email === undefined}
-    <p>Leave your email so that we can reply:</p>
+    <p class="text-base-content">Leave your email so that we can reply:</p>
     <input
       bind:this="{emailInput}"
       bind:value="{email}"
       type="text"
       placeholder="your email"
-      class="input input-bordered md:input-sm"
+      class="input input-bordered md:input-sm text-base-content"
     />
     <div class="flex flex-row items-center justify-center space-x-2">
       <button

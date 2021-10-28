@@ -10,6 +10,8 @@ export const currentlySelectedCategory = writable<null | SubmissionCategory>(
   null
 );
 
+export const theme = writable<"light" | "dark">("light");
+
 export const metadata = writable<Metadata | undefined>();
 
 export const widgetConfig = writable<null | WidgetConfig>(null);
@@ -18,8 +20,8 @@ export const isVisible = writable(false);
 
 export const isMobile = writable(false);
 
-// export const endpoint = "https://app.bromb.co";
-export const endpoint = "http://localhost:3000";
+export const endpoint = "https://app.bromb.co";
+// export const endpoint = "http://localhost:3000";
 
 export const widgetError = writable<unknown | null>(null);
 

@@ -1,5 +1,5 @@
 <script>
-  import { isMobile, closeWidget } from "../store";
+  import { isMobile, closeWidget, theme } from "../store";
   import { fade, slide } from "svelte/transition";
   import Header from "./Header.svelte";
   import Footer from "./Footer.svelte";
@@ -35,7 +35,7 @@
   }
 </script>
 
-<div transition:fade="{{ duration: 100 }}" data-theme="light">
+<div transition:fade="{{ duration: 100 }}" data-theme="{$theme}">
   {#if $isMobile}
     <div
       id="bromb-mobile-overlay"
@@ -44,7 +44,7 @@
     ></div>
     <div
       transition:slide
-      class="w-screen rounded-t-xl p-3 fixed bottom-0 left-0 bg-primary-content -z-top-1"
+      class="w-screen rounded-t-xl p-3 fixed bottom-0 left-0 bg-base-100 -z-top-1"
     >
       <Header />
       <slot />
@@ -52,7 +52,7 @@
     </div>
   {:else}
     <div
-      class="rounded-xl p-3 shadow-desktop bg-primary-content -z-top-1 w-72"
+      class="rounded-xl p-3 shadow-desktop bg-base-100 -z-top-1 w-72"
       use:clickOutside="{closeWidget}"
     >
       <Header />

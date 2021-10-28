@@ -11,7 +11,7 @@
 
 <div class="flex flex-col items-center justify-center p-6">
   <p class="w-1/3">⚠️</p>
-  <p class="text-xl font-bold mt-2">
+  <p class="text-xl font-bold mt-2 text-base-content">
     {"Something went wrong"}
   </p>
 </div>

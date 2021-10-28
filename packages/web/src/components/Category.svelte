@@ -14,12 +14,12 @@
   on:click
 >
   <div class="rounded h-full flex items-center justify-center">
-    <p class="text-center text-2xl">{category.emoji}</p>
+    <p class="text-center text-2xl text-base-content">{category.emoji}</p>
   </div>
   <div>
-    <p class="font-semibold">{category.title}</p>
+    <p class="font-semibold text-base-content">{category.title}</p>
     {#if showDescription}
-      <p class="text-sm">{category.description}</p>
+      <p class="text-sm text-base-content">{category.description}</p>
     {/if}
   </div>
 </div>

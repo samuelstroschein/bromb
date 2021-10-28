@@ -1,13 +1,17 @@
 <script lang="ts">
-  import BrombLogo from "../static/bromb-logo.svg";
+  import BrombLogoLightMode from "../static/bromb-logo-light-mode.svg";
+  import BrombLogoDarkMode from "../static/bromb-logo-dark-mode.svg";
+  import { theme } from "../store";
 </script>
 
-<div class="flex justify-center mt-1.5 mb-0.5">
-  <p class="text-xs text-gray-500">
-    <a class="text-gray-700" href="https://bromb.co" target="_blank">
+<!-- TODO dark mode logo -->
+
+<div class="flex justify-center pt-2">
+  <p class="text-xs">
+    <a class="text-base-content" href="https://bromb.co" target="_blank">
       Powered by <img
         class="h-3 -mt-0.5 inline"
-        src="{BrombLogo}"
+        src="{$theme === 'dark' ? BrombLogoDarkMode : BrombLogoLightMode}"
         alt="Bromb"
       />
     </a>

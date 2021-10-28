@@ -90,24 +90,24 @@
 </script>
 
 <div class="form-control my-2">
-  <p class="font-medium ">
+  <p class="font-medium text-base-content">
     {$currentlySelectedCategory?.description}
   </p>
-  <div class="h-2"></div>
+  <br />
   <textarea
+    placeholder="Please be detailed in your message."
     bind:this="{textareaInput}"
-    class="textarea bg-base-200 leading-tight h-24"
+    class="textarea bg-base-300 text-base-content leading-tight h-24"
     bind:value="{message}"></textarea>
 </div>
 <column class="space-y-1">
   <row class="space-x-1">
     {#if $metadata?.["screenshot"]}
-      <button class="btn btn-square sm:btn-sm" on:click="{handleScreenshot}">
+      <button class="btn btn-square sm:btn-sm" on:click="{previewScreenshot}">
         <img
           src="{$metadata['screenshot']}"
           class="w-full h-full p-1 sm:p-0.5 rounded-lg"
           alt="screenshot"
-          on:click="{previewScreenshot}"
         />
       </button>
     {/if}
