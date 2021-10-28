@@ -44,7 +44,7 @@
     ></div>
     <div
       transition:slide
-      class="w-screen rounded-t-xl p-2 fixed bottom-0 left-0 bg-primary-content -z-top-1"
+      class="w-screen rounded-t-xl p-3 fixed bottom-0 left-0 bg-primary-content -z-top-1"
     >
       <Header />
       <slot />
@@ -52,7 +52,7 @@
     </div>
   {:else}
     <div
-      class="rounded-xl p-2 shadow-desktop bg-primary-content -z-top-1 w-72"
+      class="rounded-xl p-3 shadow-desktop bg-primary-content -z-top-1 w-72"
       use:clickOutside="{closeWidget}"
     >
       <Header />

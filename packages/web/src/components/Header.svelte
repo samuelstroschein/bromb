@@ -7,7 +7,7 @@
 
 <row class="flex flex-row justify-between items-center space-x-2">
   {#if $currentlySelectedCategory === null}
-    <p class="text-xl sm:text-lg font-bold text-neutral p-1">
+    <p class="text-xl sm:text-lg font-bold text-neutral py-1">
       What's on your mind?
     </p>
   {:else}

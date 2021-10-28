@@ -15,6 +15,8 @@
 
   let lastTriggerElement;
 
+  let isLoading = false;
+
   document.body.addEventListener("click", async (event) => {
     let match;
     if (event.target?.matches("[href^='https://submission.bromb.co']")) {
@@ -30,6 +32,24 @@
     }
     if (match) {
       event.preventDefault();
+      isLoading = true;
+      $isVisible = !$isVisible;
+      $isMobile = window.innerWidth <= 640 ? true : false;
+      lastTriggerElement = event.target;
+      if ($isMobile === false) {
+        // on desktop, popup is created
+        createPopper(event.target, brombHtmlElement, {
+          placement: "auto",
+          modifiers: [
+            {
+              name: "offset",
+              options: {
+                offset: [0, 10],
+              },
+            },
+          ],
+        });
+      }
       const parsedUrl = parseUrl({ url: new URL(match.href) });
       if (parsedUrl.error) {
         $widgetError = parsedUrl.error;
@@ -58,30 +78,33 @@
           }
         }
       }
-      $isVisible = !$isVisible;
-      $isMobile = window.innerWidth <= 640 ? true : false;
-      lastTriggerElement = event.target;
-      if ($isMobile === false) {
-        // on desktop, popup is created
-        createPopper(event.target, brombHtmlElement, {
-          placement: "auto",
-          modifiers: [
-            {
-              name: "offset",
-              options: {
-                offset: [0, 10],
-              },
-            },
-          ],
-        });
-      }
+      isLoading = false;
     }
   });
 </script>
 
 {#if $isVisible}
   <Layout lastTriggerElement="{lastTriggerElement}">
-    {#if $widgetError}
+    {#if isLoading}
+      <!-- skeletons -->
+      <column class="w-full space-y-3">
+        <div class="w-20 h-6 bg-gray-200 rounded-full animate-pulse"></div>
+        <div class="w-full h-4 bg-gray-200 rounded-full animate-pulse"></div>
+        <div class="w-full h-4 bg-gray-200 rounded-full animate-pulse"></div>
+      </column>
+      <br />
+      <column class="w-full space-y-3">
+        <div class="w-20 h-6 bg-gray-200 rounded-full animate-pulse"></div>
+        <div class="w-full h-4 bg-gray-200 rounded-full animate-pulse"></div>
+        <div class="w-full h-4 bg-gray-200 rounded-full animate-pulse"></div>
+      </column>
+      <br />
+      <column class="w-full space-y-3">
+        <div class="w-20 h-6 bg-gray-200 rounded-full animate-pulse"></div>
+        <div class="w-full h-4 bg-gray-200 rounded-full animate-pulse"></div>
+        <div class="w-full h-4 bg-gray-200 rounded-full animate-pulse"></div>
+      </column>
+    {:else if $widgetError}
       <p>Something went wrong: {$widgetError}</p>
     {:else}
       <svelte:component this="{$router}" />
