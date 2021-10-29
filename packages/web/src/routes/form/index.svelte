@@ -14,11 +14,21 @@
   import type { Metadata } from "../../types/metadata";
   import { router } from "../../router";
 
+  // used for conditional logic
+  const screenshotName = "bromb-widget-screenshot.png";
+
+  type Attachment = {
+    name: string;
+    base64: string;
+  };
+
+  // not using definitions to be copy & pastable with widget
   type RequestBody = {
     organizationName: string;
     projectName: string;
     categoryId: string;
     body: string;
+    attachments: Attachment[];
     metadata: Metadata;
   };
 
@@ -26,29 +36,33 @@
     submissionId: string;
   };
 
+  let attachments: Attachment[] = [];
+
   let message: string = "";
 
   let buttonIsLoading = false;
+
+  $: screenshotExists = attachments.some(
+    (attachment) => attachment.name === screenshotName
+  );
 
   let textareaInput: HTMLTextAreaElement;
 
   $: isDisabled = message === "";
 
   async function handleScreenshot() {
-    if ($metadata?.["screenshot"]) {
-      $metadata["screenshot"] = undefined;
-    } else {
-      try {
-        const screenshot = await dataURL(window, { ignore: ["#bromb-widget"] });
-        if ($metadata) {
-          $metadata["screenshot"] = screenshot.value;
-        }
-      } catch (err) {
-        if ($metadata?.["screenshot"]) {
-          $metadata["screenshot"] = undefined;
-          console.error("Bromb: Taking a screenshot throwed an error.");
-        }
-      }
+    try {
+      const screenshot = await dataURL(window, { ignore: ["#bromb-widget"] });
+      // remove previous screenshot, if exists
+      attachments = attachments.filter(
+        (attachment) => attachment.name !== screenshotName
+      );
+      attachments.push({
+        name: screenshotName,
+        base64: screenshot.value,
+      });
+    } catch (err) {
+      console.error("Bromb: Taking a screenshot throwed an error.");
     }
   }
 
@@ -71,6 +85,7 @@
       projectName: $widgetConfig.projectName,
       organizationName: $widgetConfig.organizationName,
       body: message,
+      attachments: attachments,
       categoryId: $currentlySelectedCategory.id,
       metadata: $metadata!,
     };
@@ -108,19 +123,19 @@
 </div>
 <column class="space-y-1">
   <row class="space-x-1">
-    {#if $metadata?.["screenshot"]}
+    {#if screenshotExists}
       <button class="btn btn-square sm:btn-sm" on:click="{previewScreenshot}">
         <img
-          src="{$metadata['screenshot']}"
+          src="{attachments.find(
+            (attachment) => attachment.name === screenshotName
+          )?.base64 ?? ''}"
           class="w-full h-full p-1 sm:p-0.5 rounded-lg"
           alt="screenshot"
         />
       </button>
     {/if}
     <button
-      class="btn sm:btn-sm flex-grow {$metadata?.['screenshot']
-        ? ''
-        : 'btn-secondary'}"
+      class="btn sm:btn-sm flex-grow {screenshotExists ? '' : 'btn-secondary'}"
       on:click="{handleScreenshot}"
     >
       <row class="items-center">
