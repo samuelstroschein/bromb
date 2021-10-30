@@ -1,7 +1,14 @@
-import { widgetError } from "../store";
 import type { Metadata } from "../types/metadata";
 
-export function parseUrl(args: { url: URL }): {
+/**
+ *
+ * @param url Url
+ * @param triggerElementText string
+ */
+export function parseUrlAndMetadata(args: {
+  url: URL;
+  triggerElementText: string;
+}): {
   error: null | string;
   data: null | {
     organizationName: string;
@@ -12,19 +19,21 @@ export function parseUrl(args: { url: URL }): {
 } {
   const metadata: Metadata = {
     device: window.navigator.userAgent,
-    page: window.location.href,
+    siteUrl: window.location.href,
     email: undefined,
+    triggerElementText: args.triggerElementText,
     screenshot: undefined,
   };
   for (const [name, value] of args.url.searchParams) {
     metadata[name] = value;
   }
+
   const paths = args.url.pathname.split("/").filter((path) => path !== "");
   if (paths.length < 2) {
     return {
       data: null,
       error:
-        'Bromb has been triggered without the required "https://submission.bromb.co/organization/project" path.',
+        'Incorrect trigger link which did not adhere to the "https://submission.bromb.co/organization/project" schema.',
     };
   }
   return {

@@ -50,26 +50,44 @@
 
   $: isDisabled = message === "";
 
-  async function handleScreenshot() {
+  async function takeScreenshot() {
     try {
       const screenshot = await dataURL(window, { ignore: ["#bromb-widget"] });
       // remove previous screenshot, if exists
       attachments = attachments.filter(
         (attachment) => attachment.name !== screenshotName
       );
-      attachments.push({
-        name: screenshotName,
-        base64: screenshot.value,
-      });
+      attachments = [
+        ...attachments,
+        {
+          name: screenshotName,
+          base64: screenshot.value,
+        },
+      ];
     } catch (err) {
       console.error("Bromb: Taking a screenshot throwed an error.");
     }
   }
 
+  function removeScreenshot() {
+    attachments = attachments.filter(
+      (attachment) => attachment.name !== screenshotName
+    );
+  }
+
   function previewScreenshot() {
-    let w = window.open("about:blank");
-    let image = new Image();
-    image.src = $metadata?.["screenshot"]!;
+    const screenshot = attachments.find(
+      (attachment) => attachment.name === screenshotName
+    );
+    if (screenshot === undefined) {
+      alert(
+        "Hmm, couldn't find the screenshot. That's likely a bug in bromb and not from the website your are visiting right now."
+      );
+      return;
+    }
+    const w = window.open("about:blank");
+    const image = new Image();
+    image.src = screenshot.base64;
     setTimeout(function () {
       w!.document.write(image.outerHTML);
     }, 0);
@@ -136,10 +154,10 @@
     {/if}
     <button
       class="btn sm:btn-sm flex-grow {screenshotExists ? '' : 'btn-secondary'}"
-      on:click="{handleScreenshot}"
+      on:click="{screenshotExists ? removeScreenshot : takeScreenshot}"
     >
       <row class="items-center">
-        {#if $metadata?.["screenshot"] === undefined}
+        {#if screenshotExists === false}
           <CameraIcon class="h-8 sm:h-5 pr-2 pb-1 sm:pb-0.5" />
           Take a screenshot
         {:else}

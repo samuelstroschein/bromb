@@ -8,7 +8,7 @@
   import { isVisible, isMobile, metadata } from "./store";
   import Layout from "./components/Layout.svelte";
   import { createPopper } from "@popperjs/core/dist/esm";
-  import { parseUrl } from "./functions/parseUrl";
+  import { parseUrlAndMetadata } from "./functions/parseUrlAndMetadata";
   import { getConfig } from "./functions/getConfig";
   import CategorySkeleton from "./components/CategorySkeleton.svelte";
 
@@ -19,17 +19,20 @@
   let isLoading = false;
 
   document.body.addEventListener("click", async (event) => {
+    if (event.target === null) {
+      return;
+    }
     let match;
-    if (event.target?.matches("[href^='https://submission.bromb.co']")) {
+    if (event.target.matches("[href^='https://submission.bromb.co']")) {
       match = event.target;
     } else if (
       // in case the <a> element is wrapping another element which triggered the click
-      event.target?.parentElement &&
-      event.target?.parentElement.matches(
+      event.target.parentElement &&
+      event.target.parentElement.matches(
         "[href^='https://submission.bromb.co']"
       )
     ) {
-      match = event.target?.parentElement;
+      match = event.target.parentElement;
     }
     if (match) {
       event.preventDefault();
@@ -51,7 +54,10 @@
           ],
         });
       }
-      const parsedUrl = parseUrl({ url: new URL(match.href) });
+      const parsedUrl = parseUrlAndMetadata({
+        url: new URL(match.href),
+        triggerElementText: event.target.textContent,
+      });
       if (parsedUrl.error) {
         $widgetError = parsedUrl.error;
       } else {
