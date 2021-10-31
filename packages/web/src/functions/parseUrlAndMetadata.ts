@@ -27,7 +27,6 @@ export function parseUrlAndMetadata(args: {
   for (const [name, value] of args.url.searchParams) {
     metadata[name] = value;
   }
-
   const paths = args.url.pathname.split("/").filter((path) => path !== "");
   if (paths.length < 2) {
     return {
@@ -42,7 +41,7 @@ export function parseUrlAndMetadata(args: {
       organizationName: paths[0],
       projectName: paths[1],
       metadata: metadata,
-      route: args.url.pathname[2],
+      route: paths[2],
     },
   };
 }

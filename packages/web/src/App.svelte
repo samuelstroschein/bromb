@@ -73,12 +73,13 @@
             $widgetConfig = config.data;
           }
         }
-        if (parsedUrl.route) {
+        if (parsedUrl.data.route) {
+          console.log("hhhi");
           // if widget config contains id for the submission category,
           // set currently selected category to this id and route to form
           $currentlySelectedCategory =
             $widgetConfig?.submissionCategories.find(
-              (c) => c.id === parsedUrl.route.slice(1, parsedUrl.route.length)
+              (c) => c.id === parsedUrl.data.route
             ) ?? null;
           if ($currentlySelectedCategory) {
             router.goto("/form");

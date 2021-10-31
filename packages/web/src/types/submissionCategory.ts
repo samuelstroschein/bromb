@@ -3,5 +3,4 @@ export type SubmissionCategory = {
   title: string;
   description: string;
   emoji: string;
-  isPublic: boolean;
 };

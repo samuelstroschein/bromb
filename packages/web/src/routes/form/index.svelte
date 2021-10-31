@@ -19,7 +19,7 @@
 
   type Attachment = {
     name: string;
-    base64: string;
+    dataUrl: string;
   };
 
   // not using definitions to be copy & pastable with widget
@@ -61,7 +61,7 @@
         ...attachments,
         {
           name: screenshotName,
-          base64: screenshot.value,
+          dataUrl: screenshot.value,
         },
       ];
     } catch (err) {
@@ -87,7 +87,7 @@
     }
     const w = window.open("about:blank");
     const image = new Image();
-    image.src = screenshot.base64;
+    image.src = screenshot.dataUrl;
     setTimeout(function () {
       w!.document.write(image.outerHTML);
     }, 0);
@@ -146,7 +146,7 @@
         <img
           src="{attachments.find(
             (attachment) => attachment.name === screenshotName
-          )?.base64 ?? ''}"
+          )?.dataUrl ?? ''}"
           class="w-full h-full p-1 sm:p-0.5 rounded-lg"
           alt="screenshot"
         />

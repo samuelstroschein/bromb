@@ -4,7 +4,7 @@
   import { currentlySelectedCategory, widgetConfig } from "../store";
 </script>
 
-{#each $widgetConfig?.submissionCategories.filter((c) => c.isPublic) ?? [] as category}
+{#each $widgetConfig?.submissionCategories ?? [] as category}
   <Category
     class="hover:bg-base-300"
     category="{category}"
