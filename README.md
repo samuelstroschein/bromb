@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="500rem" src="https://raw.githubusercontent.com/samuelstroschein/bromb/main/assets/widget-open.png" />
+    <img width="300rem" src="https://raw.githubusercontent.com/samuelstroschein/bromb/main/assets/widget-open.png" />
 </p>
 
 # bromb
