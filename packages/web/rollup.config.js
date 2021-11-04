@@ -2,12 +2,14 @@ import svelte from "rollup-plugin-svelte";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import image from "@rollup/plugin-image";
-
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import sveltePreprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
 import { visualizer } from "rollup-plugin-visualizer";
+import injectProcessEnv from "rollup-plugin-inject-process-env";
+
+import dotenv from "dotenv";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -69,6 +71,14 @@ export default {
       sourceMap: !production,
       inlineSources: !production,
     }),
+    injectProcessEnv(dotenv.config().parsed),
+    // replace({
+    //   process: JSON.stringify({
+    //     env: {
+    //       CONFIG_URL: "http://localhost:3000/api/config",
+    //     },
+    //   }),
+    // }),
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated

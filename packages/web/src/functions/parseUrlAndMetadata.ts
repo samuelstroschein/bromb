@@ -1,4 +1,4 @@
-import type { Metadata } from "../types/metadata";
+import type { Metadata } from "../types/Metadata";
 
 /**
  *

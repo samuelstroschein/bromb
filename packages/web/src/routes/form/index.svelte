@@ -1,21 +1,19 @@
 <script lang="ts">
   import {
     currentlySelectedCategory,
-    endpoint,
-    submissionId,
     metadata,
     widgetError,
     widgetConfig,
+    projectName,
+    organizationName,
   } from "../../store";
   import CameraIcon from "@svicons/ionicons-solid/camera.svelte";
   import CloseIcon from "@svicons/ionicons-solid/close.svelte";
   import { dataURL } from "@gripeless/pico";
   import { onMount } from "svelte";
-  import type { Metadata } from "../../types/metadata";
+  import type { Metadata } from "../../types/Metadata";
   import { router } from "../../router";
-
-  // used for conditional logic
-  const screenshotName = "bromb-widget-screenshot.png";
+  import CollectEmail from "../../components/CollectEmail.svelte";
 
   type Attachment = {
     name: string;
@@ -32,15 +30,16 @@
     metadata: Metadata;
   };
 
-  type ResponseBody = {
-    submissionId: string;
-  };
+  // used for conditional logic
+  const screenshotName = "bromb-widget-screenshot.png";
+
+  let showCollectEmail = false;
 
   let attachments: Attachment[] = [];
 
   let message: string = "";
 
-  let buttonIsLoading = false;
+  let isSubmitting = false;
 
   $: screenshotExists = attachments.some(
     (attachment) => attachment.name === screenshotName
@@ -94,33 +93,37 @@
   }
 
   async function handleSubmission() {
-    if ($currentlySelectedCategory === null || $widgetConfig === null) {
-      $widgetError = "Something went wrong. Please report the bug to bromb.";
+    if (
+      $currentlySelectedCategory === null ||
+      $widgetConfig === null ||
+      $organizationName === null ||
+      $projectName === null
+    ) {
+      $widgetError = "Something went wrong. Please report the bug.";
       return;
     }
-    buttonIsLoading = true;
+    isSubmitting = true;
     const body: RequestBody = {
-      projectName: $widgetConfig.projectName,
-      organizationName: $widgetConfig.organizationName,
-      body: message,
-      attachments: attachments,
       categoryId: $currentlySelectedCategory.id,
+      organizationName: $organizationName,
+      projectName: $projectName,
+      body: message,
       metadata: $metadata!,
+      attachments: attachments,
     };
-    const response = await fetch(endpoint + "/api/submission", {
+    const response = await fetch($widgetConfig.submissionEndpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
     });
-    $submissionId = ((await response.json()) as ResponseBody).submissionId;
     if (response.status === 200) {
       router.goto("/form/success");
     } else {
       router.goto("/form/failure");
     }
-    buttonIsLoading = false;
+    isSubmitting = false;
   }
 
   onMount(() => {
@@ -128,52 +131,66 @@
   });
 </script>
 
-<div class="form-control my-2">
-  <p class="font-medium text-base-content">
-    {$currentlySelectedCategory?.description}
-  </p>
-  <br />
-  <textarea
-    placeholder="Please be detailed in your message."
-    bind:this="{textareaInput}"
-    class="textarea bg-base-300 text-base-content leading-tight h-24"
-    bind:value="{message}"></textarea>
-</div>
-<column class="space-y-1">
-  <row class="space-x-1">
-    {#if screenshotExists}
-      <button class="btn btn-square sm:btn-sm" on:click="{previewScreenshot}">
-        <img
-          src="{attachments.find(
-            (attachment) => attachment.name === screenshotName
-          )?.dataUrl ?? ''}"
-          class="w-full h-full p-1 sm:p-0.5 rounded-lg"
-          alt="screenshot"
-        />
+{#if isSubmitting}
+  <sl-spinner></sl-spinner>
+{:else if showCollectEmail === false}
+  <div class="form-control my-2">
+    <p class="font-medium text-base-content">
+      {$currentlySelectedCategory?.description}
+    </p>
+    <br />
+    <textarea
+      placeholder="Please be detailed in your message."
+      bind:this="{textareaInput}"
+      class="textarea bg-base-300 text-base-content leading-tight h-24"
+      bind:value="{message}"></textarea>
+  </div>
+  <column class="space-y-1">
+    <row class="space-x-1">
+      {#if screenshotExists}
+        <button class="btn btn-square sm:btn-sm" on:click="{previewScreenshot}">
+          <img
+            src="{attachments.find(
+              (attachment) => attachment.name === screenshotName
+            )?.dataUrl ?? ''}"
+            class="w-full h-full p-1 sm:p-0.5 rounded-lg"
+            alt="screenshot"
+          />
+        </button>
+      {/if}
+      <button
+        class="btn sm:btn-sm flex-grow {screenshotExists
+          ? ''
+          : 'btn-secondary'}"
+        on:click="{screenshotExists ? removeScreenshot : takeScreenshot}"
+      >
+        <row class="items-center">
+          {#if screenshotExists === false}
+            <CameraIcon class="h-8 sm:h-5 pr-2 pb-1 sm:pb-0.5" />
+            Take a screenshot
+          {:else}
+            <CloseIcon class="h-8 sm:h-5 pr-2 pb-1 sm:pb-0.5" />
+            Remove screenshot
+          {/if}
+        </row>
       </button>
-    {/if}
+    </row>
     <button
-      class="btn sm:btn-sm flex-grow {screenshotExists ? '' : 'btn-secondary'}"
-      on:click="{screenshotExists ? removeScreenshot : takeScreenshot}"
+      class="btn btn-primary sm:btn-sm btn-block flex-shrink"
+      on:click="{handleSubmission}"
+      disabled="{isDisabled}"
     >
-      <row class="items-center">
-        {#if screenshotExists === false}
-          <CameraIcon class="h-8 sm:h-5 pr-2 pb-1 sm:pb-0.5" />
-          Take a screenshot
-        {:else}
-          <CloseIcon class="h-8 sm:h-5 pr-2 pb-1 sm:pb-0.5" />
-          Remove screenshot
-        {/if}
-      </row>
+      {"Send"}
     </button>
-  </row>
-  <button
-    class="btn btn-primary sm:btn-sm btn-block flex-shrink {buttonIsLoading
-      ? 'loading'
-      : ''}"
-    on:click="{handleSubmission}"
-    disabled="{isDisabled}"
-  >
-    {"Send"}
-  </button>
-</column>
+  </column>
+{:else}
+  <CollectEmail
+    onEmailProvided="{(email) => {
+      if ($metadata) {
+        $metadata.email = email;
+      }
+      handleSubmission();
+    }}"
+    onNoEmailProvided="{handleSubmission}"
+  />
+{/if}

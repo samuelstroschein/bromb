@@ -1,12 +1,11 @@
-import { endpoint } from "../store";
-import type { WidgetConfig } from "../types/widgetConfig";
+import type { WidgetConfig } from "../types/WidgetConfig";
 
 export async function getConfig(args: {
   projectName: string;
   organizationName: string;
 }): Promise<{ data: WidgetConfig | null; error: unknown | null }> {
   try {
-    const response = await fetch(endpoint + "/api/config", {
+    const response = await fetch(process.env.CONFIG_ENDPOINT as string, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
