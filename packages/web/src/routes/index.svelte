@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-
   import Category from "../components/Category.svelte";
   import { router } from "../router";
   import { currentlySelectedCategory, widgetConfig } from "../store";
