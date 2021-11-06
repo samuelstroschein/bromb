@@ -4,10 +4,6 @@
   import Category from "../components/Category.svelte";
   import { router } from "../router";
   import { currentlySelectedCategory, widgetConfig } from "../store";
-
-  onMount(() => {
-    console.log({ conf: $widgetConfig?.submissionCategories });
-  });
 </script>
 
 {#each $widgetConfig?.submissionCategories ?? [] as category}

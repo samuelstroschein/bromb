@@ -67,7 +67,6 @@
           (parsedUrl.data.organizationName !== $widgetConfig.organizationName &&
             parsedUrl.data.projectName !== $widgetConfig.projectName)
         ) {
-          console.log("conf undefined???");
           const config = await getConfig({
             organizationName: parsedUrl.data.organizationName,
             projectName: parsedUrl.data.projectName,

@@ -7,7 +7,6 @@ export async function getConfig(args: {
   try {
     //@ts-ignore
     if (window.customBrombWidgetConfig) {
-      console.log({ window });
       return {
         data: {
           organizationName: args.organizationName,
