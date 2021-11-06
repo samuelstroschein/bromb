@@ -8,6 +8,31 @@
 
     <link rel="icon" type="image/png" href="/favicon.png" />
     <script defer src="/build/widget.js" data-theme="light"></script>
+    <script>
+      var customBrombWidgetConfig = {
+        submissionEndpoint: "localhost:3000",
+        submissionCategories: [
+          {
+            id: "feedback",
+            title: "Feedback",
+            description: "Any idea how we can improve this site?",
+            emoji: "📣",
+          },
+          {
+            id: "contact",
+            title: "Contact us",
+            description: "Write us a mail",
+            emoji: "📩",
+          },
+          {
+            id: "feature",
+            title: "Feature Request",
+            description: "Any idea how we can improve this site?",
+            emoji: "💡",
+          },
+        ],
+      };
+    </script>
   </head>
 
   <body>

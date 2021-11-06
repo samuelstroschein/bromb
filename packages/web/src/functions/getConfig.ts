@@ -5,6 +5,19 @@ export async function getConfig(args: {
   organizationName: string;
 }): Promise<{ data: WidgetConfig | null; error: unknown | null }> {
   try {
+    //@ts-ignore
+    if (window.customBrombWidgetConfig) {
+      console.log({ window });
+      return {
+        data: {
+          organizationName: args.organizationName,
+          projectName: args.projectName,
+          // @ts-ignore
+          ...window.customBrombWidgetConfig,
+        },
+        error: null,
+      };
+    }
     const response = await fetch(process.env.CONFIG_ENDPOINT as string, {
       method: "POST",
       headers: {

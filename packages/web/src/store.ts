@@ -14,10 +14,6 @@ export const metadata = writable<Metadata | undefined>();
 
 export const widgetConfig = writable<null | WidgetConfig>(null);
 
-export const organizationName = writable<string | null>(null);
-
-export const projectName = writable<string | null>(null);
-
 export const isVisible = writable(false);
 
 export const isMobile = writable(false);

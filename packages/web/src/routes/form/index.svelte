@@ -4,8 +4,6 @@
     metadata,
     widgetError,
     widgetConfig,
-    projectName,
-    organizationName,
   } from "../../store";
   import CameraIcon from "@svicons/ionicons-solid/camera.svelte";
   import CloseIcon from "@svicons/ionicons-solid/close.svelte";
@@ -93,20 +91,15 @@
   }
 
   async function handleSubmission() {
-    if (
-      $currentlySelectedCategory === null ||
-      $widgetConfig === null ||
-      $organizationName === null ||
-      $projectName === null
-    ) {
-      $widgetError = "Something went wrong. Please report the bug.";
+    if ($currentlySelectedCategory === null || $widgetConfig === null) {
+      $widgetError = "Error 293jsa";
       return;
     }
     isSubmitting = true;
     const body: RequestBody = {
       categoryId: $currentlySelectedCategory.id,
-      organizationName: $organizationName,
-      projectName: $projectName,
+      organizationName: $widgetConfig.organizationName,
+      projectName: $widgetConfig.projectName,
       body: message,
       metadata: $metadata!,
       attachments: attachments,
