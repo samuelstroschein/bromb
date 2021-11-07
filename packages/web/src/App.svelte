@@ -103,7 +103,7 @@
     {:else if $widgetError}
       <p>Something went wrong: {$widgetError}</p>
     {:else}
-      <svelte:component this="{$router}" />
+      <svelte:component this="{$router.component}" />
     {/if}
   </Layout>
 {/if}

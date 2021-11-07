@@ -4,6 +4,7 @@
     metadata,
     widgetError,
     widgetConfig,
+    showCollectEmail,
   } from "../../store";
   import CameraIcon from "@svicons/ionicons-solid/camera.svelte";
   import CloseIcon from "@svicons/ionicons-solid/close.svelte";
@@ -30,8 +31,6 @@
 
   // used for conditional logic
   const screenshotName = "bromb-widget-screenshot.png";
-
-  let showCollectEmail = false;
 
   let attachments: Attachment[] = [];
 
@@ -95,6 +94,10 @@
       $widgetError = "Error 293jsa";
       return;
     }
+    if ($metadata?.email === undefined && $showCollectEmail !== true) {
+      $showCollectEmail = true;
+      return;
+    }
     isSubmitting = true;
     const body: RequestBody = {
       categoryId: $currentlySelectedCategory.id,
@@ -104,19 +107,25 @@
       metadata: $metadata!,
       attachments: attachments,
     };
-    const response = await fetch($widgetConfig.submissionEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-    if (response.status === 200) {
-      router.goto("/form/success");
-    } else {
-      router.goto("/form/failure");
+    try {
+      const response = await fetch($widgetConfig.submissionEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      if (response.status === 200) {
+        router.goto("/form/success");
+      } else {
+        router.goto("/form/failure");
+      }
+    } catch (e) {
+      $widgetError = e;
     }
     isSubmitting = false;
+    // showCollectEmail is required to adjust the header text in Header.svelte
+    $showCollectEmail = false;
   }
 
   onMount(() => {
@@ -124,10 +133,8 @@
   });
 </script>
 
-{#if isSubmitting}
-  <sl-spinner></sl-spinner>
-{:else if showCollectEmail === false}
-  <div class="form-control my-2">
+{#if $showCollectEmail === false}
+  <div class="form-control">
     <p class="font-medium text-base-content">
       {$currentlySelectedCategory?.description}
     </p>
@@ -137,6 +144,7 @@
       bind:this="{textareaInput}"
       class="textarea bg-base-300 text-base-content leading-tight h-24"
       bind:value="{message}"></textarea>
+    <br />
   </div>
   <column class="space-y-1">
     <row class="space-x-1">
@@ -169,7 +177,8 @@
       </button>
     </row>
     <button
-      class="btn btn-primary sm:btn-sm btn-block flex-shrink"
+      class="btn btn-primary sm:btn-sm btn-block flex-shrink {isSubmitting &&
+        'loading'}"
       on:click="{handleSubmission}"
       disabled="{isDisabled}"
     >
@@ -185,5 +194,6 @@
       handleSubmission();
     }}"
     onNoEmailProvided="{handleSubmission}"
+    isSubmitting="{isSubmitting}"
   />
 {/if}

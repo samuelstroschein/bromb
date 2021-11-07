@@ -20,6 +20,8 @@ export const isMobile = writable(false);
 
 export const widgetError = writable<unknown | null>(null);
 
+export const showCollectEmail = writable(false);
+
 /**
  * Closes the widget and re-initializes stores where appropriate.
  */
