@@ -1,3 +1,7 @@
+# 1.3.0
+- feat: customBrombWidgetConfig
+- refactor: ask for email flow
+
 # 1.2.0
 
 - fix: previewing a screenshot

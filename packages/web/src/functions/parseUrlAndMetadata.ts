@@ -1,4 +1,4 @@
-import type { Metadata } from "../types/metadata";
+import type { Metadata } from "../types/Metadata";
 
 /**
  *
@@ -35,6 +35,7 @@ export function parseUrlAndMetadata(args: {
         'Incorrect trigger link which did not adhere to the "https://submission.bromb.co/organization/project" schema.',
     };
   }
+  console.log({ metadata });
   return {
     error: null,
     data: {

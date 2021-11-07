@@ -62,7 +62,11 @@
         $widgetError = parsedUrl.error;
       } else {
         $metadata = parsedUrl.data.metadata;
-        if ($widgetConfig === null) {
+        if (
+          $widgetConfig === null ||
+          (parsedUrl.data.organizationName !== $widgetConfig.organizationName &&
+            parsedUrl.data.projectName !== $widgetConfig.projectName)
+        ) {
           const config = await getConfig({
             organizationName: parsedUrl.data.organizationName,
             projectName: parsedUrl.data.projectName,
@@ -74,7 +78,6 @@
           }
         }
         if (parsedUrl.data.route) {
-          console.log("hhhi");
           // if widget config contains id for the submission category,
           // set currently selected category to this id and route to form
           $currentlySelectedCategory =
@@ -100,7 +103,7 @@
     {:else if $widgetError}
       <p>Something went wrong: {$widgetError}</p>
     {:else}
-      <svelte:component this="{$router}" />
+      <svelte:component this="{$router.component}" />
     {/if}
   </Layout>
 {/if}

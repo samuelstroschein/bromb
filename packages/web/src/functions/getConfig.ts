@@ -1,12 +1,23 @@
-import { endpoint } from "../store";
-import type { WidgetConfig } from "../types/widgetConfig";
+import type { WidgetConfig } from "../types/WidgetConfig";
 
 export async function getConfig(args: {
   projectName: string;
   organizationName: string;
 }): Promise<{ data: WidgetConfig | null; error: unknown | null }> {
   try {
-    const response = await fetch(endpoint + "/api/config", {
+    //@ts-ignore
+    if (window.customBrombWidgetConfig) {
+      return {
+        data: {
+          organizationName: args.organizationName,
+          projectName: args.projectName,
+          // @ts-ignore
+          ...window.customBrombWidgetConfig,
+        },
+        error: null,
+      };
+    }
+    const response = await fetch(process.env.CONFIG_ENDPOINT as string, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,5 +1,5 @@
 /**
- * Bromb-js requires a special router that *doesn't route*.
+ * The widget requires a special router that *doesn't route*.
  *
  * This is a tiny custom router that is typesafe and does not mingle around
  * with the hosts routing. Which all other routers that I @samuelstroschein
@@ -22,12 +22,15 @@ const routes = {
 } as const;
 
 function createRouter() {
-  const { subscribe, set } = writable<typeof SvelteComponent>(Index);
+  const { subscribe, set } = writable<{
+    route: string;
+    component: typeof SvelteComponent;
+  }>({ route: "/", component: routes["/"] });
 
   return {
     subscribe,
     goto: (route: keyof typeof routes) => {
-      set(routes[route]);
+      set({ route, component: routes[route] });
     },
   };
 }

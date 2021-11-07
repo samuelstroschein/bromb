@@ -16,8 +16,6 @@ async function main(): Promise<void> {
   window.customElements.define("bromb-widget", BrombWebComponent);
   const bromb = document.createElement("bromb-widget");
   bromb.setAttribute("id", "bromb-widget");
-  // ignore bromb from screenshot
-  bromb.setAttribute("data-html2canvas-ignore", "");
   // setting the zIndex to the maximum:
   // the bromb widegt should always be on top of all other layers.
   bromb.style.zIndex = "2147483647";
@@ -34,6 +32,11 @@ async function main(): Promise<void> {
     console.warn(
       `Bromb: You have not specified a theme in the data-theme attribute. Light mode is chosen as fallback.`
     );
+  }
+  // @ts-ignore
+  if (window.CustomBrombWidgetConfig) {
+    // @ts-ignore
+    console.log(window.CustomBrombWidgetConfig);
   }
   document.body.appendChild(bromb);
 }

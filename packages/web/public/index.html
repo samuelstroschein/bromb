@@ -8,6 +8,31 @@
 
     <link rel="icon" type="image/png" href="/favicon.png" />
     <script defer src="/build/widget.js" data-theme="light"></script>
+    <script>
+      var customBrombWidgetConfig = {
+        submissionEndpoint: "http://localhost:3000/api/submission",
+        submissionCategories: [
+          {
+            id: "feedback",
+            title: "Feedback",
+            description: "Any idea how we can improve this site?",
+            emoji: "📣",
+          },
+          {
+            id: "contact",
+            title: "Contact us",
+            description: "Write us a mail",
+            emoji: "📩",
+          },
+          {
+            id: "feature",
+            title: "Feature Request",
+            description: "Any idea how we can improve this site?",
+            emoji: "💡",
+          },
+        ],
+      };
+    </script>
   </head>
 
   <body>
@@ -28,7 +53,7 @@
       Link that contains bromb.co but should not prevent routing
     </a>
     <a
-      href="https://submission.bromb.co/bromb/dashboard/feedback?email='hello@world.com'"
+      href="https://submission.bromb.co/bromb/dashboard/feedback?email=hello@world.com"
     >
       Link that should directly go to feedback with email hello@world.com
     </a>

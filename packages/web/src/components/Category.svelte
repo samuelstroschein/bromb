@@ -1,10 +1,11 @@
 <script lang="ts">
-  import type { SubmissionCategory } from "../types/submissionCategory";
+  import type { SubmissionCategory } from "../types/SubmissionCategory";
 
   export let category: SubmissionCategory;
 
   export let showDescription = true;
 
+  // hack to pass css classes
   let classes = "";
   export { classes as class };
 </script>
