@@ -20,11 +20,11 @@ async function main(): Promise<void> {
   // the bromb widegt should always be on top of all other layers.
   bromb.style.zIndex = "2147483647";
   const themeAttribute = document.currentScript?.getAttribute("data-theme");
-  const customApiEndpointAttribute = document.currentScript?.getAttribute(
-    "data-custom-api-endpoint"
+  const customEndpointAttribute = document.currentScript?.getAttribute(
+    "data-custom-endpoint"
   );
-  if (customApiEndpointAttribute) {
-    apiEndpoint.set(customApiEndpointAttribute);
+  if (customEndpointAttribute) {
+    apiEndpoint.set(customEndpointAttribute);
   }
   if (themeAttribute) {
     if (themeAttribute === "light" || themeAttribute === "dark") {
