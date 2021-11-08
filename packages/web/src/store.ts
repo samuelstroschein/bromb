@@ -10,6 +10,10 @@ export const currentlySelectedCategory = writable<null | SubmissionCategory>(
 
 export const theme = writable<"light" | "dark">("light");
 
+export const apiEndpoint = writable<string>(
+  process.env["DEFAULT_API_ENDPOINT"]
+);
+
 export const metadata = writable<Metadata | undefined>();
 
 export const widgetConfig = writable<null | WidgetConfig>(null);

@@ -5,6 +5,7 @@
     widgetError,
     widgetConfig,
     showCollectEmail,
+    apiEndpoint,
   } from "../../store";
   import CameraIcon from "@svicons/ionicons-solid/camera.svelte";
   import CloseIcon from "@svicons/ionicons-solid/close.svelte";
@@ -108,7 +109,7 @@
       attachments: attachments,
     };
     try {
-      const response = await fetch($widgetConfig.submissionEndpoint, {
+      const response = await fetch($apiEndpoint + "/submission", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

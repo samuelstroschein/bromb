@@ -1,6 +1,7 @@
 <script>
   import { router } from "./router.ts";
   import {
+    apiEndpoint,
     currentlySelectedCategory,
     widgetConfig,
     widgetError,
@@ -68,6 +69,7 @@
             parsedUrl.data.projectName !== $widgetConfig.projectName)
         ) {
           const config = await getConfig({
+            apiEndpoint: $apiEndpoint,
             organizationName: parsedUrl.data.organizationName,
             projectName: parsedUrl.data.projectName,
           });

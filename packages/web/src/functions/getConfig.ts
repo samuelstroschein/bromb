@@ -1,29 +1,18 @@
+import { apiEndpoint } from "../store";
 import type { WidgetConfig } from "../types/WidgetConfig";
 
 export async function getConfig(args: {
   projectName: string;
   organizationName: string;
+  apiEndpoint: string;
 }): Promise<{ data: WidgetConfig | null; error: unknown | null }> {
   try {
-    //@ts-ignore
-    if (window.customBrombWidgetConfig) {
-      return {
-        data: {
-          organizationName: args.organizationName,
-          projectName: args.projectName,
-          // @ts-ignore
-          ...window.customBrombWidgetConfig,
-        },
-        error: null,
-      };
-    }
-    const response = await fetch(process.env.CONFIG_ENDPOINT as string, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(args),
-    });
+    const response = await fetch(
+      args.apiEndpoint + `/config/${args.organizationName}/${args.projectName}`,
+      {
+        method: "GET",
+      }
+    );
     if (response.ok !== true) {
       return {
         data: null,
@@ -31,6 +20,7 @@ export async function getConfig(args: {
       };
     }
     const config: WidgetConfig = await response.json();
+    console.log({ config });
     return { data: config, error: null };
   } catch (e) {
     return { data: null, error: e };

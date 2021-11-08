@@ -72,13 +72,6 @@ export default {
       inlineSources: !production,
     }),
     injectProcessEnv(dotenv.config().parsed),
-    // replace({
-    //   process: JSON.stringify({
-    //     env: {
-    //       CONFIG_URL: "http://localhost:3000/api/config",
-    //     },
-    //   }),
-    // }),
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated

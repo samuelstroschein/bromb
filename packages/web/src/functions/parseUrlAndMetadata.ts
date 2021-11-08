@@ -35,7 +35,6 @@ export function parseUrlAndMetadata(args: {
         'Incorrect trigger link which did not adhere to the "https://submission.bromb.co/organization/project" schema.',
     };
   }
-  console.log({ metadata });
   return {
     error: null,
     data: {
