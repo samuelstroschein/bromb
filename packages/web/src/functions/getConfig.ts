@@ -20,7 +20,6 @@ export async function getConfig(args: {
       };
     }
     const config: WidgetConfig = await response.json();
-    console.log({ config });
     return { data: config, error: null };
   } catch (e) {
     return { data: null, error: e };
