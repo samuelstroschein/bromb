@@ -8,7 +8,7 @@ A simple feedback widget for websites/web apps. Simply place
 
 ```html
 <head>
-  <script async defer src="https://app.bromb.co/widget.js"></script>
+  <script async defer src="https://cdn.jsdelivr.net/gh/samuelstroschein/bromb/packages/web/dist/widget.js"></script>
 </head>
 ```
 
