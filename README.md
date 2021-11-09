@@ -1,18 +1,61 @@
 <p align="center">
-    <img width="300rem" src="https://raw.githubusercontent.com/samuelstroschein/bromb/main/assets/widget-open.png" />
+    <img src="https://raw.githubusercontent.com/samuelstroschein/bromb/main/assets/submission-animation.gif" />
 </p>
 
 # bromb
 
-A simple feedback widget for websites/web apps. Simply place
+A feedback widget for websites/web apps designed to be
+- simple
+- responsive
+- configurable
+- self-hostable for custom integrations
+- work in no code environments (website builders)
+
+## Getting Started
+
+### 1. Copy the following code
+
+Copy the following `<script>` `</script>` and place it in the head of your HTML. 
 
 ```html
-<head>
-  <script async defer src="https://cdn.jsdelivr.net/gh/samuelstroschein/bromb/packages/web/dist/widget.js"></script>
-</head>
+<script
+	async
+	defer
+	data-theme="light"
+	src="https://cdn.jsdelivr.net/gh/samuelstroschein/bromb/packages/web/dist/widget.js"
+></script>
 ```
 
-`<script>` into the `<head>` of your website/app and use a (link) elements to trigger the widget:  
-`<a href="https://submission.bromb.co/<your organization>/<your project>">Give feedback <a>`
+### 2. Create a project
 
-Read more at [bromb.co](https://bromb.co)
+**Simple:** Create a project at [bromb.co](https://app.bromb.co/).  
+  
+**Advanced:** Self-host an endpoint as described in [this repository](https://github.com/samuelstroschein/bromb-endpoint).
+
+
+### 3. Trigger the widget
+
+The bromb widget is triggered by clicking on a link on your site which follows the following schema `https://submission.bromb.co/<your organization name>/<your project name>`. We'll call that link [the trigger link](https://bromb.helpkit.so/Good-To-Know/wQs4WXa7Psb8rqWepyQJxe/Trigger-Links/tcdx5kdjtBexrDJrpGWYdC). 
+
+#### Code
+
+place an `<a>` in your markup. 
+
+```html
+<a href="https://submission.bromb.co/<your organization>/<your project>">
+  Give us feedback
+</a>
+```
+
+
+#### Website Builder
+
+you can trigger the widget by placing a trigger link on your page. 
+
+<p>
+    <img width="300rem" src="https://raw.githubusercontent.com/samuelstroschein/bromb/main/assets/website-builder-trigger-link.png" />
+</p>
+
+## More Advanced Stuff
+
+Take a look at the [docs](https://docs.bromb.co/Getting-Started/kp7gkUemPZXb9aFHtEEFra/Make-use-of-metadata/tLocGXW9aSUnG5eWJwDBGY).
