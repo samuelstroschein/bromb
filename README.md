@@ -25,9 +25,12 @@ Copy the following `<script>` `</script>` and place it in the head of your HTML.
 ></script>
 ```
 
-### 2. Create an a project
+### 2. Create a project
 
-You can go two routes here. Either you create an account and project over at [bromb.co](https://app.bromb.co/), or you self host an endpoint as described in [this]((https://github.com/samuelstroschein/bromb-endpoint)) repository.
+**Simple:** Create a project at [bromb.co](https://app.bromb.co/).  
+  
+**Advanced:** Self-host an endpoint as described in [this repository](https://github.com/samuelstroschein/bromb-endpoint).
+
 
 ### 3. Trigger the widget
 
