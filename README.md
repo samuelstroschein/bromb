@@ -21,6 +21,7 @@ Copy the following `<script>` `</script>` and place it in the head of your HTML.
 <script
 	async
 	defer
+	data-theme="light"
 	src="https://cdn.jsdelivr.net/gh/samuelstroschein/bromb/packages/web/dist/widget.js"
 ></script>
 ```
