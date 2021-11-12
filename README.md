@@ -7,7 +7,7 @@
 A feedback widget for websites/web apps designed to be
 - simple
 - responsive
-- configurable
+- configurable categories
 - self-hostable for custom integrations
 - work in no code environments (website builders)
 
