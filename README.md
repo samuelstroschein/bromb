@@ -7,9 +7,10 @@
 A feedback widget for websites/web apps designed to be
 - simple
 - responsive
-- configurable categories
-- self-hostable for custom integrations
-- work in no code environments (website builders)
+- configurable (categories)
+- one-click self-hostable
+- work in no-code environments (website builders)
+- make it easy to write own integrations (Slack, Notion, etc.)
 
 ## Getting Started
 
