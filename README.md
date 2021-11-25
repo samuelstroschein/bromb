@@ -29,7 +29,7 @@ Copy the following `<script>` `</script>` and place it in the head of your HTML.
 
 ### 2. Create a project
 
-**Simple:** Create a project at [bromb.co](https://app.bromb.co/).  
+**Simple:** Create a project at [bromb.co](https://app.bromb.co/) (it's free).  
   
 **Advanced:** Self-host an endpoint as described in [this repository](https://github.com/samuelstroschein/bromb-endpoint).
 
