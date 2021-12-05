@@ -8,7 +8,7 @@ A feedback widget for websites/web apps designed to be
 - simple
 - responsive
 - configurable (categories)
-- one-click self-hostable
+- [one-click self-hostable](https://github.com/samuelstroschein/bromb-endpoint)
 - work in no-code environments (website builders)
 - make it easy to write own integrations (Slack, Notion, etc.)
 
