@@ -9,7 +9,7 @@ Bromb let's you open a specific category directly by using a [Category Trigger L
 <aside>
 💡 **Category Trigger Link**
 You can directly open a specific category by appending the [trigger link](./glossary.md) with a category id: ****`https://submission.bromb.co/<your organization name>/<your project nam>/<category id>`. 
-For example: We have a category with `bug` as id. Using `[https://submission.bromb.co/bromb/dashboard/bug](https://submission.bromb.co/bromb/dashboard/bug)` will directly open the bug category.
+For example: We have a category with `bug` as id. Using 'https://submission.bromb.co/bromb/dashboard/bug' will directly open the bug category.
 
 </aside>
 
