@@ -59,4 +59,4 @@ you can trigger the widget by placing a trigger link on your page.
 
 ## More Advanced Stuff
 
-Take a look at the [docs](https://docs.bromb.co/Getting-Started/kp7gkUemPZXb9aFHtEEFra/Make-use-of-metadata/tLocGXW9aSUnG5eWJwDBGY).
+Take a look at the [docs](./documentation).
