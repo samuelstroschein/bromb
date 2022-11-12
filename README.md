@@ -29,14 +29,11 @@ Copy the following `<script>` `</script>` and place it in the head of your HTML.
 
 ### 2. Create a project
 
-**Simple:** Create a project at [bromb.co](https://app.bromb.co/) (it's free).  
-  
-**Advanced:** Self-host an endpoint as described in [this repository](https://github.com/samuelstroschein/bromb-endpoint).
-
+Self-host an endpoint as described in [this repository](https://github.com/samuelstroschein/bromb-endpoint).
 
 ### 3. Trigger the widget
 
-The bromb widget is triggered by clicking on a link on your site which follows the following schema `https://submission.bromb.co/<your organization name>/<your project name>`. We'll call that link [the trigger link](https://bromb.helpkit.so/Good-To-Know/wQs4WXa7Psb8rqWepyQJxe/Trigger-Links/tcdx5kdjtBexrDJrpGWYdC). 
+The bromb widget is triggered by clicking on a link on your site which follows the following schema `https://submission.bromb.co/<your organization name>/<your project name>`. We'll call that link the trigger link.
 
 #### Code
 
